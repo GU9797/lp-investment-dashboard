@@ -51,8 +51,10 @@ def get_lp_data(lp_short_name):
     # Find the latest PCAP date <= report date
     pcaps_for_lp = pcap[(pcap['LP Short Name'] == lp_short_name) & (pcap['PCAP Date'] <= report_date)]
     if pcaps_for_lp.empty:
+        pcap_report_date = None
         print("No PCAP data available for this LP before the report date.")
-    pcap_report_date = pcaps_for_lp['PCAP Date'].max()
+    else:
+        pcap_report_date = pcaps_for_lp['PCAP Date'].max()
 
     # -------------------------------
     # LP Profile Info
@@ -127,7 +129,7 @@ def get_lp_data(lp_short_name):
         'totals': totals,
         'irr': irr,
         'report_date': report_date.strftime('%Y-%m-%d'),
-        'pcap_report_date': pcap_report_date.strftime('%Y-%m-%d')
+        'pcap_report_date': pcap_report_date.strftime('%Y-%m-%d') if pcap_report_date else 'N/A'
     })
 
 
