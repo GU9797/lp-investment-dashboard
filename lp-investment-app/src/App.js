@@ -95,6 +95,9 @@ export default function App() {
           value={reportDate}
           onChange={(e) => setReportDate(e.target.value)}
           InputLabelProps={{ shrink: true }}
+          inputProps={{
+            max: new Date().toISOString().split('T')[0] // Prevent future dates
+          }}
         />
       </Box>
 
